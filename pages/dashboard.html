@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AI PlacePro</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="dashboard-navbar">
+        <div class="navbar-container">
+            <div class="navbar-left">
+                <div class="logo">
+                    <h2>🎓 AI PlacePro</h2>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search courses, skills, interviews...">
+                    <span class="search-icon">🔍</span>
+                </div>
+            </div>
+            <div class="navbar-right">
+                <div class="notification-icon">
+                    <span>🔔</span>
+                    <span class="notification-badge">3</span>
+                </div>
+                <div class="user-menu">
+                    <div class="user-avatar" onclick="toggleUserMenu()">
+                        <span id="userInitials">JD</span>
+                    </div>
+                    <div class="user-dropdown" id="userDropdown">
+                        <div class="dropdown-header">
+                            <p class="user-name" id="userName">John Doe</p>
+                            <p class="user-email" id="userEmail">[email&#160;protected]</p>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <a href="profile.html" class="dropdown-item">👤 My Profile</a>
+                        <a href="settings.html" class="dropdown-item">⚙️ Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item" onclick="handleLogout()">🚪 Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <ul class="nav-menu">
+                <li class="nav-item active" onclick="showSection('home', this)">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-text">Dashboard</span>
+                </li>
+                <li class="nav-item" onclick="showSection('profile', this)">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-text">Profile Analysis</span>
+                </li>
+                <li class="nav-item" onclick="showSection('resume', this)">
+                    <span class="nav-icon">📄</span>
+                    <span class="nav-text">Resume Analyzer</span>
+                </li>
+                <li class="nav-item" onclick="showSection('missing', this)">
+                    <span class="nav-icon">⚠️</span>
+                    <span class="nav-text">Missing Requirements</span>
+                </li>
+                <li class="nav-item" onclick="showSection('study', this)">
+                    <span class="nav-icon">📚</span>
+                    <span class="nav-text">Study Plan</span>
+                </li>
+                <li class="nav-item" onclick="showSection('practice', this)">
+                    <span class="nav-icon">💻</span>
+                    <span class="nav-text">Coding Practice</span>
+                </li>
+                <li class="nav-item" onclick="showSection('skills', this)">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">Skills Assessment</span>
+                </li>
+                <li class="nav-item" onclick="showSection('interview', this)">
+                    <span class="nav-icon">💼</span>
+                    <span class="nav-text">Mock Interviews</span>
+                </li>
+                <li class="nav-item" onclick="showSection('prediction', this)">
+                    <span class="nav-icon">🎯</span>
+                    <span class="nav-text">Placement Prediction</span>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Home Section -->
+            <section id="homeSection" class="content-section active">
+                <div class="page-header">
+                    <div>
+                        <h1>Welcome Back, <span id="welcomeName">John</span>! 👋</h1>
+                        <p class="page-subtitle">Here's your placement training progress</p>
+                    </div>
+                    <button class="btn-primary" onclick="showSection('resume', null)">
+                        <span>📄</span> Upload Resume
+                    </button>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon blue">📈</div>
+                        <div class="stat-info">
+                            <h3>Resume Score</h3>
+                            <p class="stat-value" id="resumeScore">--</p>
+                            <span class="stat-change" id="resumeScoreStatus">Upload resume to see score</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green">✅</div>
+                        <div class="stat-info">
+                            <h3>Skills Found</h3>
+                            <p class="stat-value" id="skillsFoundCount">--</p>
+                            <span class="stat-change" id="skillsFoundStatus">From resume analysis</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon purple">💻</div>
+                        <div class="stat-info">
+                            <h3>Missing Skills</h3>
+                            <p class="stat-value" id="missingSkillsCount">--</p>
+                            <span class="stat-change" id="missingSkillsStatus">Need to add</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon orange">🎯</div>
+                        <div class="stat-info">
+                            <h3>ATS Score</h3>
+                            <p class="stat-value" id="atsScoreValue">--</p>
+                            <span class="stat-change" id="atsScoreStatus">Compatibility rating</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analysis Cards -->
+                <div class="analysis-grid">
+                    <!-- Strengths -->
+                    <div class="analysis-card strengths">
+                        <div class="card-header">
+                            <h2>💪 Your Skills (From Resume)</h2>
+                            <div class="card-header-actions">
+                                <button class="btn-secondary btn-sm" type="button" onclick="openResumeSkillsModal()" id="viewAllSkillsBtn">
+                                    View all
+                                </button>
+                                <span class="badge success" id="strengthsBadge">Analyzed</span>
+                            </div>
+                        </div>
+                        <div class="skills-list" id="strengthsList">
+                            <p style="text-align: center; padding: 2rem; color: var(--gray-500);">
+                                Upload your resume to see your skills analysis
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Missing Skills for Selected Job (only company job requirements) -->
+                    <div class="analysis-card weaknesses">
+                        <div class="card-header">
+                            <h2 id="missingSkillsTitle">⚠️ Missing Skills for Job</h2>
+                            <span class="badge warning" id="missingBadge">Action Needed</span>
+                        </div>
+                        <div class="missing-skills-dropdown-wrap" id="missingSkillsDropdownWrap" style="display:none;">
+                            <label for="missingSkillsJobSelect">Select job:</label>
+                            <select id="missingSkillsJobSelect" class="missing-skills-select">
+                                <option value="">Select company & job...</option>
+                            </select>
+                        </div>
+                        <p class="missing-skills-hint" id="missingSkillsHint" style="display:none; font-size:0.9rem; color:var(--gray-600); margin:1rem 0;"></p>
+                        <div class="skills-list" id="missingSkillsList">
+                            <p style="text-align: center; padding: 2rem; color: var(--gray-500);">Select a job to see required skills you're missing.</p>
+                        </div>
+                        <button class="btn-action" onclick="showSection('missing', null)">
+                            View Missing Skills by Job →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Matching Job Roles -->
+                <div class="jobs-card">
+                    <h3>🎯 Matching Job Roles</h3>
+                    <p class="jobs-subtitle">Based on your resume and company-posted requirements</p>
+                    <div id="jobMatchesList">
+                        <p style="text-align: center; padding: 2rem; color: var(--gray-500);">
+                            Upload your resume and ensure companies have added job roles to see your match scores.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Other sections will be loaded via other page files -->
+            <section id="profileSection" class="content-section" style="display: none;">
+                <h1>Profile Analysis</h1>
+                <p>This section will be loaded from profile.html</p>
+            </section>
+
+            <section id="skillsSection" class="content-section" style="display: none;">
+                <h1>Skills Assessment</h1>
+                <p>This section will be loaded from skills.html</p>
+            </section>
+
+            <section id="missingSection" class="content-section" style="display: none;">
+                <div class="page-header">
+                    <div>
+                        <h1>⚠️ Missing Skills & Requirements</h1>
+                        <p class="page-subtitle">Skills and requirements that need to be added to your resume</p>
+                    </div>
+                </div>
+                <div id="missingSkillsContent">
+                    <p>Upload your resume to see missing skills and requirements.</p>
+                </div>
+            </section>
+
+            <section id="studySection" class="content-section" style="display: none;">
+                <div class="page-header">
+                    <div>
+                        <h1>📚 Personalized Study Plan</h1>
+                        <p class="page-subtitle">AI-generated study notes for your missing skills</p>
+                    </div>
+                </div>
+                <div id="studyPlanContentWrap">
+                    <p>Select a company & job to see your personalized study plan.</p>
+                </div>
+            </section>
+
+
+            <section id="practiceSection" class="content-section" style="display: none;">
+                <h1>Coding Practice</h1>
+                <p>This section will be loaded from practice.html</p>
+            </section>
+
+            <section id="resumeSection" class="content-section" style="display: none;">
+                <h1>Resume Analyzer</h1>
+                <p>This section will be loaded from resume.html</p>
+            </section>
+
+            <section id="interviewSection" class="content-section" style="display: none;">
+                <h1>Mock Interviews</h1>
+                <p>This section will be loaded from interview.html</p>
+            </section>
+
+            <section id="predictionSection" class="content-section" style="display: none;">
+                <h1>Placement Prediction</h1>
+                <p>This section will be loaded from prediction.html</p>
+            </section>
+        </main>
+    </div>
+
+    <!-- Resume skills modal -->
+    <div id="resumeSkillsModal" class="modal-overlay" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="resumeSkillsModalTitle">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="resumeSkillsModalTitle">Resume Skills</h3>
+                <button class="modal-close" type="button" onclick="closeResumeSkillsModal()" aria-label="Close">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <div class="modal-section-header">
+                        <h4>All skills found</h4>
+                        <span class="modal-meta" id="resumeSkillsCountMeta"></span>
+                    </div>
+                    <div id="resumeSkillsModalList" class="modal-skills-grid"></div>
+                </div>
+                <div class="modal-divider"></div>
+                <div class="modal-section">
+                    <div class="modal-section-header">
+                        <h4>Compatibility with company roles</h4>
+                        <span class="modal-meta">based on required skills</span>
+                    </div>
+                    <div class="modal-compat-controls">
+                        <label for="resumeSkillsModalJobSelect">Select role</label>
+                        <select id="resumeSkillsModalJobSelect" class="missing-skills-select"></select>
+                    </div>
+                    <div id="resumeSkillsModalCompat" class="modal-compat-panel"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/dashboard.js"></script>
+</body>
+</html>

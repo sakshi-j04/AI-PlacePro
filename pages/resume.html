@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Analyzer - AI PlacePro</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/resume.css">
+</head>
+<body>
+    <div class="resume-analyzer-container">
+        <div class="page-header">
+            <h1>📄 AI Resume Analyzer</h1>
+            <p class="page-subtitle">Get your ATS score and detailed improvement suggestions</p>
+        </div>
+
+        <!-- Upload Section -->
+        <div class="upload-section" id="uploadSection">
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📤</div>
+                <h2>Upload Your Resume</h2>
+                <p>Drag and drop your resume here or click to browse</p>
+                <input type="file" id="resumeInput" accept=".pdf,.doc,.docx" hidden>
+                <button class="btn-upload" onclick="document.getElementById('resumeInput').click()">
+                    Choose File
+                </button>
+                <p class="upload-note">Supported formats: PDF, DOC, DOCX (Max 5MB)</p>
+            </div>
+        </div>
+
+        <!-- Analysis Loading -->
+        <div class="analysis-loading" id="analysisLoading" style="display: none;">
+            <div class="loading-spinner"></div>
+            <h3>Analyzing Your Resume...</h3>
+            <p>Our AI is examining your resume for:</p>
+            <ul class="loading-steps">
+                <li id="step1" class="loading-step">✓ ATS compatibility</li>
+                <li id="step2" class="loading-step">• Keywords and skills</li>
+                <li id="step3" class="loading-step">• Grammar and structure</li>
+                <li id="step4" class="loading-step">• Content quality</li>
+                <li id="step5" class="loading-step">• Industry standards</li>
+            </ul>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-section" id="resultsSection" style="display: none;">
+            <!-- Overall Score -->
+            <div class="score-card">
+                <div class="score-visual">
+                    <svg class="score-circle" viewBox="0 0 200 200">
+                        <circle class="score-bg" cx="100" cy="100" r="90" />
+                        <circle class="score-fill" cx="100" cy="100" r="90" id="scoreCircle" />
+                    </svg>
+                    <div class="score-center">
+                        <div class="score-value" id="overallScore">0</div>
+                        <div class="score-label">Overall Score</div>
+                    </div>
+                </div>
+                <div class="score-details">
+                    <h2>Resume Analysis Complete!</h2>
+                    <p class="score-message" id="scoreMessage">Your resume is performing well!</p>
+                    <div class="score-breakdown">
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">ATS Compatibility</span>
+                            <div class="breakdown-bar">
+                                <div class="breakdown-fill" id="atsBar" style="width: 0%"></div>
+                            </div>
+                            <span class="breakdown-value" id="atsScore">0%</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">Keywords & Skills</span>
+                            <div class="breakdown-bar">
+                                <div class="breakdown-fill" id="keywordsBar" style="width: 0%"></div>
+                            </div>
+                            <span class="breakdown-value" id="keywordsScore">0%</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">Content Quality</span>
+                            <div class="breakdown-bar">
+                                <div class="breakdown-fill" id="contentBar" style="width: 0%"></div>
+                            </div>
+                            <span class="breakdown-value" id="contentScore">0%</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">Formatting</span>
+                            <div class="breakdown-bar">
+                                <div class="breakdown-fill" id="formatBar" style="width: 0%"></div>
+                            </div>
+                            <span class="breakdown-value" id="formatScore">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Analysis Tabs -->
+            <div class="analysis-tabs">
+                <button class="tab-btn active" onclick="showTab('strengths')">
+                    ✅ Strengths
+                </button>
+                <button class="tab-btn" onclick="showTab('improvements')">
+                    📈 Improvements
+                </button>
+                <button class="tab-btn" onclick="showTab('keywords')">
+                    🔑 Keywords
+                </button>
+                <button class="tab-btn" onclick="showTab('suggestions')">
+                    💡 Suggestions
+                </button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content active" id="strengthsTab">
+                <h3>✅ What's Working Well</h3>
+                <div class="analysis-items">
+                    <div class="analysis-item success">
+                        <span class="item-icon">✓</span>
+                        <div class="item-content">
+                            <h4>Strong Technical Skills Section</h4>
+                            <p>Your resume lists relevant programming languages and frameworks that match industry requirements.</p>
+                        </div>
+                    </div>
+                    <div class="analysis-item success">
+                        <span class="item-icon">✓</span>
+                        <div class="item-content">
+                            <h4>Quantifiable Achievements</h4>
+                            <p>Good use of numbers and metrics to demonstrate impact (e.g., "improved performance by 40%").</p>
+                        </div>
+                    </div>
+                    <div class="analysis-item success">
+                        <span class="item-icon">✓</span>
+                        <div class="item-content">
+                            <h4>Clean Formatting</h4>
+                            <p>Resume structure is clear and easy to read with proper section headers.</p>
+                        </div>
+                    </div>
+                    <div class="analysis-item success">
+                        <span class="item-icon">✓</span>
+                        <div class="item-content">
+                            <h4>Action-Oriented Language</h4>
+                            <p>Effective use of strong action verbs like "developed," "implemented," "optimized."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="improvementsTab" style="display: none;">
+                <h3>📈 Priority Improvements</h3>
+                <div class="analysis-items">
+                    <div class="analysis-item warning high-priority">
+                        <span class="item-icon">⚠️</span>
+                        <div class="item-content">
+                            <h4>Missing Keywords for Target Role</h4>
+                            <p>Add these industry-standard terms: "Agile methodology," "CI/CD," "microservices architecture"</p>
+                            <span class="priority-badge">High Priority</span>
+                        </div>
+                    </div>
+                    <div class="analysis-item warning medium-priority">
+                        <span class="item-icon">!</span>
+                        <div class="item-content">
+                            <h4>Weak Summary Section</h4>
+                            <p>Your summary doesn't clearly communicate your unique value proposition. Make it more compelling.</p>
+                            <span class="priority-badge">Medium Priority</span>
+                        </div>
+                    </div>
+                    <div class="analysis-item info">
+                        <span class="item-icon">i</span>
+                        <div class="item-content">
+                            <h4>Limited Project Descriptions</h4>
+                            <p>Expand on your project work to showcase problem-solving abilities and technical depth.</p>
+                            <span class="priority-badge">Low Priority</span>
+                        </div>
+                    </div>
+                    <div class="analysis-item warning medium-priority">
+                        <span class="item-icon">!</span>
+                        <div class="item-content">
+                            <h4>No Certifications Listed</h4>
+                            <p>If you have relevant certifications, add them to strengthen your profile.</p>
+                            <span class="priority-badge">Medium Priority</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="keywordsTab" style="display: none;">
+                <h3>🔑 Keyword Analysis</h3>
+                <div class="keywords-grid">
+                    <div class="keyword-category">
+                        <h4>✅ Found Keywords (12)</h4>
+                        <div class="keyword-tags">
+                            <span class="keyword-tag found">Python</span>
+                            <span class="keyword-tag found">JavaScript</span>
+                            <span class="keyword-tag found">React</span>
+                            <span class="keyword-tag found">SQL</span>
+                            <span class="keyword-tag found">Git</span>
+                            <span class="keyword-tag found">REST API</span>
+                            <span class="keyword-tag found">Problem Solving</span>
+                            <span class="keyword-tag found">Team Leadership</span>
+                            <span class="keyword-tag found">Data Analysis</span>
+                            <span class="keyword-tag found">Node.js</span>
+                            <span class="keyword-tag found">MongoDB</span>
+                            <span class="keyword-tag found">Cloud Computing</span>
+                        </div>
+                    </div>
+                    <div class="keyword-category">
+                        <h4>❌ Missing Keywords (8)</h4>
+                        <div class="keyword-tags">
+                            <span class="keyword-tag missing">Docker</span>
+                            <span class="keyword-tag missing">Kubernetes</span>
+                            <span class="keyword-tag missing">AWS</span>
+                            <span class="keyword-tag missing">System Design</span>
+                            <span class="keyword-tag missing">Agile</span>
+                            <span class="keyword-tag missing">CI/CD</span>
+                            <span class="keyword-tag missing">Microservices</span>
+                            <span class="keyword-tag missing">TDD</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="suggestionsTab" style="display: none;">
+                <h3>💡 AI-Generated Suggestions</h3>
+                <div class="suggestions-list">
+                    <div class="suggestion-card">
+                        <div class="suggestion-header">
+                            <span class="suggestion-number">1</span>
+                            <h4>Enhance Your Professional Summary</h4>
+                        </div>
+                        <div class="suggestion-body">
+                            <p class="current-text"><strong>Current:</strong> "Software developer with experience in web development."</p>
+                            <p class="suggested-text"><strong>Suggested:</strong> "Results-driven Software Developer with 2+ years of experience building scalable web applications using React and Node.js. Proven track record of optimizing application performance by 40% and collaborating with cross-functional teams to deliver user-centric solutions."</p>
+                        </div>
+                    </div>
+                    <div class="suggestion-card">
+                        <div class="suggestion-header">
+                            <span class="suggestion-number">2</span>
+                            <h4>Quantify Your Achievements</h4>
+                        </div>
+                        <div class="suggestion-body">
+                            <p class="current-text"><strong>Current:</strong> "Improved website performance."</p>
+                            <p class="suggested-text"><strong>Suggested:</strong> "Optimized website performance by reducing page load time from 5s to 1.2s, resulting in 35% increase in user engagement and 20% reduction in bounce rate."</p>
+                        </div>
+                    </div>
+                    <div class="suggestion-card">
+                        <div class="suggestion-header">
+                            <span class="suggestion-number">3</span>
+                            <h4>Add Technical Skills</h4>
+                        </div>
+                        <div class="suggestion-body">
+                            <p>Include trending technologies that match your target roles: Docker, Kubernetes, AWS/Azure, CI/CD pipelines, GraphQL, TypeScript</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn-secondary" onclick="downloadReport()">
+                    📥 Download Full Report
+                </button>
+                <button class="btn-primary" onclick="window.location.href='dashboard.html'">
+                    📊 View Dashboard
+                </button>
+                <button class="btn-outline" onclick="resetAnalyzer()">
+                    🔄 Analyze Another Resume
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/resume-analyzer.js"></script>
+</body>
+</html>

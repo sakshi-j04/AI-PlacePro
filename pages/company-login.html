@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Sign In - AI PlacePro</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/auth.css">
+</head>
+<body class="auth-page">
+    <div class="auth-container">
+        <div class="auth-left">
+            <div class="auth-brand">
+                <h2>🏢 AI PlacePro for Companies</h2>
+                <p>Post job roles and help students bridge skill gaps</p>
+            </div>
+            <div class="auth-features">
+                <div class="feature-item">
+                    <span class="feature-icon">📋</span>
+                    <p>Upload job roles with skill requirements</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🎯</span>
+                    <p>Skill requirements drive student training</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">📊</span>
+                    <p>Connect with placement-ready candidates</p>
+                </div>
+            </div>
+        </div>
+        <div class="auth-right">
+            <div class="auth-box">
+                <h1>Company Sign In</h1>
+                <p class="auth-subtitle">Access your company dashboard</p>
+                
+                <form id="companyLoginForm" onsubmit="handleCompanyLogin(event)">
+                    <div class="form-group">
+                        <label for="email">Company Email</label>
+                        <input type="email" id="email" placeholder="company@example.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter your password" required>
+                    </div>
+                    
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="remember">
+                            <span>Remember me</span>
+                        </label>
+                        <a href="#" class="forgot-link">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">Sign In</button>
+                </form>
+                
+                <div class="auth-footer">
+                    <p>Don't have a company account? <a href="company-signup.html">Sign Up</a></p>
+                </div>
+                
+                <div class="auth-footer" style="margin-top: 1rem;">
+                    <p><a href="login.html">← Back to Student Login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../js/api.js"></script>
+    <script src="../js/company-auth.js"></script>
+</body>
+</html>

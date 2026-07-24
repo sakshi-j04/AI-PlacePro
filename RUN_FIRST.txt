@@ -1,0 +1,20 @@
+AI PlacePro - How to run
+========================
+
+One server, one link. Do not open the project folder as a file path in the browser.
+
+1. Open PowerShell or Command Prompt.
+
+2. Start the app:
+   cd c:\Users\swayam\OneDrive\Desktop\ai-placement-system
+   .\.venv\Scripts\activate
+   cd backend
+   python run.py
+   Leave this window open. Wait for: "Running on http://127.0.0.1:5000"
+
+3. Open in browser (single link):
+   http://localhost:5000
+   or
+   http://127.0.0.1:5000
+
+Everything (frontend + API) is served from this one URL. You will not see any folder path.

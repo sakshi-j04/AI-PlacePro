@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Dashboard - AI PlacePro</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+    <nav class="dashboard-navbar">
+        <div class="navbar-container">
+            <div class="navbar-left">
+                <div class="logo">
+                    <h2>🏢 AI PlacePro - Company</h2>
+                </div>
+            </div>
+            <div class="navbar-right">
+                <div class="user-menu">
+                    <div class="user-avatar" onclick="toggleCompanyMenu()">
+                        <span id="companyInitials">CO</span>
+                    </div>
+                    <div class="user-dropdown" id="companyDropdown">
+                        <div class="dropdown-header">
+                            <p class="user-name" id="companyName">Company</p>
+                            <p class="user-email" id="companyEmail">email@company.com</p>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item" onclick="handleCompanyLogout()">🚪 Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <ul class="nav-menu">
+                <li class="nav-item active" onclick="showCompanySection('jobs', this)">
+                    <span class="nav-icon">📋</span>
+                    <span class="nav-text">Job Roles</span>
+                </li>
+                <li class="nav-item" onclick="showCompanySection('add', this)">
+                    <span class="nav-icon">➕</span>
+                    <span class="nav-text">Add Job Role</span>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <section id="jobsSection" class="content-section active">
+                <div class="page-header">
+                    <div>
+                        <h1>Your Job Roles</h1>
+                        <p class="page-subtitle">Job requirements are used to identify skill gaps for students</p>
+                    </div>
+                </div>
+                <div id="jobRolesList" class="job-roles-list">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+
+            <section id="addSection" class="content-section" style="display: none;">
+                <div class="page-header">
+                    <div>
+                        <h1>Add Job Role</h1>
+                        <p class="page-subtitle">Add job roles with skill requirements - students will see these as targets</p>
+                    </div>
+                </div>
+                <div class="company-form-card">
+                    <form id="jobRoleForm" onsubmit="handleAddJobRole(event)">
+                        <div class="form-group">
+                            <label for="jobTitle">Job Title *</label>
+                            <input type="text" id="jobTitle" placeholder="e.g. Software Engineer, Data Analyst" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="jobDepartment">Department</label>
+                            <input type="text" id="jobDepartment" placeholder="e.g. Engineering, Analytics">
+                        </div>
+                        <div class="form-group">
+                            <label for="experience">Experience Required</label>
+                            <input type="text" id="experience" placeholder="e.g. 0-2 years, Fresher, 2-5 years">
+                        </div>
+                        <div class="form-group">
+                            <label for="skillsRequired">Required Skills * (comma-separated)</label>
+                            <textarea id="skillsRequired" rows="4" placeholder="e.g. Python, JavaScript, React, SQL, Data Structures, System Design, Git, Docker" required></textarea>
+                            <small class="form-hint">List all technical and soft skills required for this role. These will be used for student skill gap analysis.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="niceToHave">Nice to Have (comma-separated)</label>
+                            <textarea id="niceToHave" rows="2" placeholder="e.g. AWS, Kubernetes, Redis"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="jobDescription">Job Description (optional)</label>
+                            <textarea id="jobDescription" rows="3" placeholder="Brief description of the role"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Add Job Role</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/company-auth.js"></script>
+    <script src="../js/company-dashboard.js"></script>
+</body>
+</html>

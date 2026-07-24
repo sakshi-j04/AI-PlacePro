@@ -1,0 +1,49 @@
+[
+  {
+    "id": 1,
+    "title": "python role",
+    "department": "Software",
+    "experience": "1",
+    "skillsRequired": [
+      "SQL",
+      "CSS"
+    ],
+    "niceToHave": [
+      "HTML"
+    ],
+    "description": "",
+    "companyName": "abc"
+  },
+  {
+    "id": 2,
+    "title": "UI/UX",
+    "department": "Developer",
+    "experience": "5",
+    "skillsRequired": [
+      "HTML",
+      "CSS",
+      "JS"
+    ],
+    "niceToHave": [
+      "React"
+    ],
+    "description": "",
+    "companyName": "abc"
+  },
+  {
+    "id": 3,
+    "title": "SQL",
+    "department": "Developer",
+    "experience": "10",
+    "skillsRequired": [
+      "AWS",
+      "Kuber",
+      "Java"
+    ],
+    "niceToHave": [
+      "Google Cloud"
+    ],
+    "description": "",
+    "companyName": "XYZ"
+  }
+]
