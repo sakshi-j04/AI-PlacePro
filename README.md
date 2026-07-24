@@ -270,123 +270,7 @@ The resume analyzer currently uses **simulated AI scoring** with hardcoded analy
 
 To integrate with a real resume parsing API, you can use:
 
-#### Option 1: Affinda Resume Parser API
-```javascript
-// In resume-analyzer.js, replace the analyzeResume function
 
-async function analyzeResume(file) {
-    const formData = new FormData();
-    formData.append('resume', file);
-    
-    try {
-        const response = await fetch('https://api.affinda.com/v3/resume', {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer YOUR_API_KEY'
-            },
-            body: formData
-        });
-        
-        const data = await response.json();
-        
-        // Extract and score the resume
-        const scores = calculateScores(data);
-        showResults(scores);
-        
-    } catch (error) {
-        console.error('Resume parsing error:', error);
-    }
-}
-
-function calculateScores(resumeData) {
-    // Your scoring logic based on API response
-    return {
-        overall: calculateOverallScore(resumeData),
-        ats: calculateATSScore(resumeData),
-        keywords: calculateKeywordScore(resumeData),
-        content: calculateContentScore(resumeData),
-        format: calculateFormatScore(resumeData)
-    };
-}
-```
-
-#### Option 2: Custom Python Backend with SpaCy/NLTK
-
-**Backend (Flask):**
-```python
-from flask import Flask, request, jsonify
-import spacy
-import PyPDF2
-
-app = Flask(__name__)
-nlp = spacy.load("en_core_web_sm")
-
-@app.route('/analyze-resume', methods=['POST'])
-def analyze_resume():
-    file = request.files['resume']
-    
-    # Extract text from PDF
-    text = extract_text_from_pdf(file)
-    
-    # NLP Analysis
-    doc = nlp(text)
-    
-    # Calculate scores
-    scores = {
-        'overall': calculate_overall_score(doc),
-        'ats': calculate_ats_score(doc),
-        'keywords': analyze_keywords(doc),
-        'content': analyze_content(doc),
-        'format': analyze_format(text)
-    }
-    
-    return jsonify(scores)
-```
-
-**Frontend Integration:**
-```javascript
-async function analyzeResume(file) {
-    const formData = new FormData();
-    formData.append('resume', file);
-    
-    const response = await fetch('http://your-backend-url/analyze-resume', {
-        method: 'POST',
-        body: formData
-    });
-    
-    const scores = await response.json();
-    showResults(scores);
-}
-```
-
-#### Option 3: Third-Party APIs
-
-**Recommended APIs:**
-- **Affinda**: https://www.affinda.com/
-- **HireAbility**: https://www.hireability.com/
-- **Sovren**: https://www.sovren.com/
-- **RChilli**: https://www.rchilli.com/
-
-**Example with Affinda:**
-```javascript
-const API_KEY = 'your_affinda_api_key';
-
-async function analyzeWithAffinda(file) {
-    const formData = new FormData();
-    formData.append('file', file);
-    
-    const response = await fetch('https://api.affinda.com/v3/resume', {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${API_KEY}`
-        },
-        body: formData
-    });
-    
-    const result = await response.json();
-    return processAffindaResponse(result);
-}
-```
 
 ### Scoring Algorithm Example
 
@@ -435,12 +319,6 @@ Edit `/css/main.css`:
     /* ... more variables */
 }
 ```
-
-### Adding New Features
-1. Create HTML in appropriate page file
-2. Add styles in corresponding CSS file
-3. Add JavaScript logic in appropriate JS file
-4. Update navigation if needed
 
 ## 🔮 Future Enhancements
 
@@ -535,20 +413,3 @@ Contributions are welcome! To contribute:
 4. Test thoroughly
 5. Submit a pull request
 
-## 📝 License
-
-This project is created for educational purposes.
-
-## 👨‍💻 Author
-
-Created with ❤️ by the AI PlacePro Team
-
-## 📧 Contact
-
-For questions or support:
-- Email: support@aiplacepo.com
-- GitHub Issues: [Create an issue]
-
----
-
-**Happy Learning! 🎓 Get Placement Ready with AI PlacePro! 🚀**
