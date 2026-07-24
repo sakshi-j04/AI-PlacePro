@@ -1,4 +1,4 @@
-# 🎓 AI PlacePro - End-to-End Placement Training System
+# 🎓 AI PlacePro - End-to-End Placement Training System.
 
 An AI-powered placement training platform that personalizes learning paths, analyzes skills, and prepares students for successful job placements.
 
